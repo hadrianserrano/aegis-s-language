@@ -1,5 +1,7 @@
 # Aegis-S Standard Library & CLI Compiler Driver (`aegisc`)
 
+This document describes proposed interfaces only. No compiler, CLI, or standard-library implementation is present in this repository.
+
 ## 1. Overview of the CLI Driver (`aegisc`)
 The Aegis-S compiler toolchain is controlled via a unified command-line interface named **`aegisc`**. Unlike traditional compilers that expose raw optimization flags, `aegisc` enforces strict security profiles, automated SMT verification checks, adversarial red-team fuzzing passes, and quantum-resistant binary emission by default.
 

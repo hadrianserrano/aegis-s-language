@@ -1,5 +1,7 @@
 # Aegis-S Internal Red-Team Simulation Engine (`RedTeam-NN`)
 
+This document describes a proposal. The Rust snippet below performs a simple substring heuristic; it does not implement neural-network analysis, fuzzing, symbolic execution, or a security assessment.
+
 ## 1. Overview of the Red-Team Compiler Pass
 In the **`aegis-c`** toolchain, compilation does not end with syntax parsing and SMT verification. Before quantum-resistant binary emission, the intermediate representation (IR) is passed through an embedded lightweight neural network and fuzzing framework known as **`RedTeam-NN`**. 
 
@@ -89,4 +91,4 @@ impl RedTeamEngine {
 ---
 
 ## 4. Adversarial Build Failure Protocol
-If `RedTeam-NN` discovers a vulnerability with a severity score greater than or equal to 6, the compiler aborts the build process immediately and outputs a structured security report, forcing the developer to harden their code before deployment.
+In a future implementation, a configured severity threshold could determine whether findings block a build. The illustrative code currently reports a heuristic finding at severity 7 and otherwise returns success; that result does not mean the module is safe or ready for deployment.

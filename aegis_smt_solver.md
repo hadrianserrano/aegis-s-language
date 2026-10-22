@@ -1,6 +1,6 @@
 # Aegis-S SMT Contract Translation Engine & Test Module
 
-Below is the implementation of the SMT-LIB2 translation engine for the `aegis-c` compiler, along with a sample `.aegis` source program to test the frontend pipeline.
+The following is an illustrative translator sketch and sample `.aegis` program, not a complete or sound verification-condition generator. It handles only a small expression subset; identifiers, pre/post-state mapping, declarations, and implication between preconditions and postconditions need a complete design before this can be used for verification.
 
 ## 1. SMT-LIB2 Contract Translator (Rust)
 
@@ -49,7 +49,7 @@ impl SmtTranslator {
         }
     }
 
-    /// Generates the complete verification condition (VC) assertion for Z3
+    /// Generates an illustrative SMT-LIB2 script for the current expression subset
     pub fn generate_verification_condition(&self, clauses: &[ContractClause]) -> String {
         let mut smt_script = String::from("; Aegis-S Auto-Generated Z3 Verification Condition\n");
         smt_script.push_str("(set-logic QF_LRA)\n");
@@ -70,7 +70,6 @@ impl SmtTranslator {
         }
 
         smt_script.push_str("(check-sat)\n");
-        smt_script.push_str("(get-model)\n");
         smt_script
     }
 }

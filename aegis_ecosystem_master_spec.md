@@ -1,13 +1,15 @@
 # Aegis-S Ecosystem Master Specification & Toolchain Reference
 
+This is a collection of design proposals and illustrative code, not an implemented compiler or runtime. The examples have not been compiled or security-reviewed and do not establish the security properties described below.
+
 ---
 
 # Part 1: Language Specification & Core Security Paradigms
 
 ## 1. Overview & Vision
-**Aegis-S** is a next-generation programming language engineered specifically to withstand modern and future artificial intelligence capabilities, including automated vulnerability discovery, LLM-based code generation exploits, and machine-learning reverse engineering. 
+**Aegis-S** is a proposed programming language design exploring defenses against automated vulnerability discovery, LLM-based code-generation exploits, and machine-learning reverse engineering.
 
-While traditional languages focus on human readability and basic memory safety (like Rust or Go), Aegis-S treats the compiler and execution environment as adversarial. It integrates **Homomorphic Type Safety**, **Cognitive Entropy Injection**, and **Built-in Formal Verification** to ensure that code cannot be systematically parsed, predicted, or exploited by AI models.
+The design treats the compiler and execution environment as adversarial and proposes **Homomorphic Type Safety**, **Cognitive Entropy Injection**, and **Built-in Formal Verification**. These proposals do not ensure that code cannot be analyzed or exploited.
 
 ---
 
@@ -76,9 +78,9 @@ pub func transfer_funds(
 ```
 
 * **Stage 1 (Semantic Flattening):** Obfuscates predictable coding patterns and syntactic sugar.
-* **Stage 2 (SMT Verification):** Evaluates all contracts via Z3 solvers to guarantee zero logical bounds violations.
-* **Stage 3 (Red-Team Fuzzing):** Simulates zero-day AI exploitation attempts against intermediate code.
-* **Stage 4 (Quantum Emission):** Signs machine code using Post-Quantum Cryptography (PQC) lattice schemes and injects ZKRI self-destruct memory-wipe traps.
+* **Stage 2 (SMT Verification):** Proposes evaluating encoded contracts with an SMT solver. Results only apply to properties correctly represented in the model and do not guarantee the absence of bugs.
+* **Stage 3 (Red-Team Fuzzing):** Proposes searching intermediate code for issues. Fuzzing cannot prove that code is vulnerability-free.
+* **Stage 4 (Quantum Emission):** Proposes signing machine code with a standardized post-quantum scheme. The included code is a placeholder, not cryptography, and a marker in a binary does not implement a runtime trap.
 
 ---
 

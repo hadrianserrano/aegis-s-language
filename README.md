@@ -10,25 +10,25 @@
 
 ## 🚀 Overview & Vision
 
-**Aegis-S** is a next-generation programming language and compiler toolchain engineered specifically to withstand modern and future artificial intelligence capabilities, including automated vulnerability discovery, LLM-based code generation exploits, and machine-learning reverse engineering. 
+**Aegis-S** is a proposed programming language and compiler-toolchain design exploring defenses against automated vulnerability discovery, LLM-based code-generation exploits, and machine-learning reverse engineering.
 
-While traditional languages focus on human readability and basic memory safety, Aegis-S treats the compiler and execution environment as **adversarial**. It integrates **Cognitive Entropy Injection (CEI)**, **Mandatory Formal Verification by Construction**, **Zero-Knowledge Runtime Isolation (ZKRI)**, and **Post-Quantum Cryptography (PQC)**.
+The design treats the compiler and execution environment as **adversarial** and proposes **Cognitive Entropy Injection (CEI)**, **Formal Verification**, **Zero-Knowledge Runtime Isolation (ZKRI)**, and **Post-Quantum Cryptography (PQC)**. These are design goals, not implemented or validated security guarantees; this repository currently contains documentation only.
 
 ---
 
 ## 🔑 Core Security Paradigms
 
-1. **Cognitive Entropy Injection (CEI):** Dynamic semantic polymorphism scrambles AST patterns and lexical structures at compile time, blinding pattern-matching AI tools and automated exploit synthesizers.
-2. **Mandatory Formal Verification (`requires` / `ensures`):** Every function requires pre- and post-conditions mathematically proven via integrated SMT solvers (`Z3`) before machine code emission. No undefined behavior or buffer overflows.
-3. **Zero-Knowledge Runtime Isolation (ZKRI):** Enclaved execution runtime featuring continuous state cryptographic hashing ($\text{BLAKE3}$) and anti-emulation sandbox detection that triggers immediate memory-wiping self-destructs upon probing.
-4. **Internal Red-Team Neural Net (`RedTeam-NN`):** An embedded compiler pass that acts as an automated zero-day adversary, fuzzing intermediate representations for side-channel leaks before build finalization.
-5. **Quantum-Resistant Lattice Emission:** Post-quantum digital signatures (modeled after CRYSTALS-Dilithium) secure final binaries against quantum-enabled Shor's algorithm attacks.
+1. **Cognitive Entropy Injection (CEI):** A proposed use of semantics-preserving transformations and lexical changes. Obfuscation does not guarantee protection from analysis.
+2. **Formal Verification (`requires` / `ensures`):** The design proposes checking function preconditions and postconditions with an SMT solver such as Z3. Results depend on the correctness and completeness of the model.
+3. **Zero-Knowledge Runtime Isolation (ZKRI):** A proposed runtime design involving memory-integrity checks, enclave support, and environment checks. See [the ZKRI specification](zkri_runtime_spec.md).
+4. **Red-Team Fuzzing:** A proposed analysis pass for searching intermediate representations for issues. A clean run would not prove that a program is vulnerability-free.
+5. **Post-Quantum Emission:** A proposal to use standardized post-quantum signatures. The examples in this repository are not production cryptography.
 
 ---
 
 ## 🛠️ The Aegis-S Toolchain (`aegisc`)
 
-The unified command-line compiler driver manages the secure compilation pipeline:
+The proposed command-line interface is named `aegisc`. These commands are illustrative; no compiler or CLI implementation is included in this repository.
 
 ```bash
 # Build an enclaved, lattice-signed secure binary with maximum entropy
@@ -42,24 +42,30 @@ aegisc audit vault.aegis --strict-entropy
 
 ## 📁 Repository Structure
 
-* `aegis_ecosystem_master_spec.md` - Comprehensive master specification covering all language, runtime, and tooling aspects.
-* `aegis_specification.md` - Core language syntax and design principles.
-* `compiler_architecture.md` - Multi-stage adversarial compilation pipeline specification.
-* `zkri_runtime_spec.md` - Zero-Knowledge Runtime Isolation specification.
-* `aegis_frontend_parser.md` - Rust lexer and recursive descent parser implementation.
-* `aegis_smt_solver.md` - SMT-LIB2 contract translation engine and sample test module.
-* `aegis_redteam_engine.md` - Automated adversarial fuzzing engine (`RedTeam-NN`).
-* `aegis_quantum_emission.md` - Post-quantum lattice signature emitter and integration test suite.
-* `aegis_std_and_cli.md` - Standard library specification and `aegisc` CLI driver reference.
-* `aegis_lsp_extension.md` - Real-time IDE Language Server Protocol specification (`aegis-lsp`).
+* [aegis_ecosystem_master_spec.md](aegis_ecosystem_master_spec.md) - Master reference bringing together the language, runtime, compiler, and tooling proposals.
+* [aegis_specification.md](aegis_specification.md) - Core language syntax and design principles.
+* [compiler_architecture.md](compiler_architecture.md) - Proposed compilation pipeline.
+* [zkri_runtime_spec.md](zkri_runtime_spec.md) - Proposed Zero-Knowledge Runtime Isolation design.
+* [aegis_frontend_parser.md](aegis_frontend_parser.md) - Frontend grammar and partial lexer/parser skeleton.
+* [aegis_smt_solver.md](aegis_smt_solver.md) - SMT-LIB2 translator proposal and sample Aegis-S program.
+* [aegis_redteam_engine.md](aegis_redteam_engine.md) - Red-team analysis proposal and illustrative Rust skeleton.
+* [aegis_quantum_emission.md](aegis_quantum_emission.md) - Post-quantum emission proposal and illustrative integration test.
+* [aegis_std_and_cli.md](aegis_std_and_cli.md) - Standard library proposal and `aegisc` CLI reference.
+* [aegis_lsp_extension.md](aegis_lsp_extension.md) - Proposed Language Server Protocol and IDE extension.
 
 ---
 
 ## 🚀 Getting Started
 
-1. Save the master specification or modular files into your local directory.
-2. Follow the GitHub upload guide to push your files to your repository.
-3. Explore the compiler frontend parser and SMT solver modules to start building custom security extensions for Aegis-S!
+1. Browse the [master specification](aegis_ecosystem_master_spec.md) or the individual documents above.
+2. Treat implementation examples as sketches; this repository has no compiler source, package manifest, or automated test suite.
+3. For a project based on these proposals, first define and validate the language and security requirements before implementing them.
+
+## Uploading to GitHub
+
+1. Create a GitHub repository.
+2. Upload `aegis_ecosystem_master_spec.md` for a single-file reference, or upload `README.md` and the modular specification files to keep the documents separate.
+3. Commit the uploaded files to the repository.
 
 ---
 *Built with absolute zero-trust architecture.*

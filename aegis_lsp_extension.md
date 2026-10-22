@@ -1,5 +1,7 @@
 # Aegis-S Language Server Protocol (LSP) & IDE Extension Specification (`aegis-lsp`)
 
+This document describes a proposed LSP and IDE extension. No server or extension implementation is present in this repository.
+
 ## 1. Overview of Real-Time IDE Security
 Traditional language servers (like rust-analyzer or gopls) focus on syntax autocomplete, type checking, and quick refactoring. In contrast, the **`aegis-lsp`** server integrates active SMT proof checking, lexical entropy tracking, and background `RedTeam-NN` fuzzing directly into the developer's editing loop. 
 
@@ -11,7 +13,7 @@ If a developer writes code that violates formal pre-conditions (`requires`) or i
 
 ### A. Real-Time SMT Proof Status
 As the AST updates in memory, background Z3 solver threads evaluate local function contracts. 
-* **Green Underline:** Contract invariant is formally proven.
+* **Green Underline:** A future implementation may report that a modeled contract was proven under its assumptions; this would not prove the whole program correct.
 * **Red Strikethrough / Underline:** Unproven verification condition or potential bound violation detected. Clicking the diagnostic suggests valid mathematical adjustments.
 
 ### B. Adversarial Vulnerability Warnings

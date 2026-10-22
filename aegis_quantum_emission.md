@@ -1,9 +1,11 @@
 # Aegis-S Stage 4: Quantum-Resistant Binary Emission & Toolchain Integration
 
-## 1. Overview of Quantum-Resistant Emission
-In traditional compilation pipelines, final machine code is signed using classical asymmetric cryptography (such as RSA or ECDSA/Ed25519). With the advent of quantum computing and Shor's algorithm, these signatures can be efficiently decrypted or forged. 
+This document is a design proposal. The Rust snippet is deliberately illustrative and is not a digital-signature implementation, post-quantum cryptography, or a working integration test.
 
-The **`aegis-c`** compiler's final stage (Stage 4) eradicates this vulnerability by enforcing **Post-Quantum Cryptography (PQC)** lattice-based digital signatures (modeled after NIST-standardized lattice schemes like CRYSTALS-Dilithium) and embedding active memory-integrity self-destruct hooks directly into the binary header.
+## 1. Overview of Quantum-Resistant Emission
+Some widely used public-key schemes, including RSA and elliptic-curve signatures, are considered vulnerable to sufficiently capable, fault-tolerant quantum computers running Shor's algorithm.
+
+The proposed **`aegis-c`** final stage would use a standardized post-quantum signature scheme, such as ML-DSA (standardized from CRYSTALS-Dilithium), through a vetted cryptographic library. A signature does not prevent reverse engineering, and adding bytes to a binary header does not implement memory-integrity checks or self-destruct behavior.
 
 ---
 
@@ -25,7 +27,7 @@ If an AI-driven quantum processor attempts to invert $\mathbf{A}$ to extract $\m
 
 ## 3. Rust Implementation: Binary Emission & Lattice Signer
 
-Below is the implementation skeleton for the quantum-resistant binary emitter and self-destruct wrapper in Rust.
+The following placeholder uses XOR and byte-prefix insertion only. It is not a signature, does not provide integrity or authenticity, and must not be used to protect binaries.
 
 ```rust
 // aegis_emission.rs - Post-quantum lattice signature emission and binary hardening
@@ -77,7 +79,7 @@ impl QuantumBinaryEmitter {
 
 ## 4. End-to-End Toolchain Integration Test Suite
 
-Below is the Rust integration test verifying the complete pipeline from frontend parsing, SMT verification, Red-Team fuzzing, to final quantum binary emission.
+The following test sketch is not a compile-ready or end-to-end integration test. The modules and types shown are proposals, and the placeholder emitter does not perform cryptographic signing.
 
 ```rust
 // tests/integration_pipeline.rs - End-to-end test suite for aegis-c
@@ -87,7 +89,7 @@ mod tests {
     use super::*;
 
     #[test]
-    test fn test_full_aegis_compilation_pipeline() {
+    fn test_full_aegis_compilation_pipeline() {
         let source_code = "module VaultSystem; secure struct Account { balance: Decimal<Protected> }";
         
         // Stage 1: Lexing & Parsing
@@ -99,10 +101,14 @@ mod tests {
         let translator = crate::aegis_smt::SmtTranslator::new();
         let clause = crate::aegis_smt::ContractClause {
             is_precondition: true,
-            expression: crate::aegis_smt::Expr::Identifier(String::from("balance >= 0")),
+            expression: crate::aegis_smt::Expr::BinaryOp(
+                String::from(">="),
+                Box::new(crate::aegis_smt::Expr::Identifier(String::from("sender_balance_t1"))),
+                Box::new(crate::aegis_smt::Expr::Literal(String::from("0"))),
+            ),
         };
         let vc = translator.generate_verification_condition(&[clause]);
-        assert!(vc.contains("(set-logic QF_LRA)"));
+        assert!(vc.contains("(assert (>= sender_balance_t1 0))"));
 
         // Stage 3: Red-Team Fuzzing Simulation
         let red_team = crate::aegis_redteam::RedTeamEngine::new(100);
